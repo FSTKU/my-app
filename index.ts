@@ -26,8 +26,9 @@ app.get("/", async (req, res) => {
 // ユーザー追加ボタンを押したときの処理
 app.post("/users", async (req, res) => {
   const name = req.body.name;
-  if (name) {
-    await prisma.user.create({ data: { name } });
+  const age = Number(req.body.age); // 文字列で来るので数値に変えるのじゃ
+  if (name && !isNaN(age)) {
+    await prisma.user.create({ data: { name, age } });
   }
   res.redirect("/");
 });
